@@ -1,0 +1,10 @@
+# ignore testing dat this will be hosted on heroku
+data
+# ignore enviroment
+.env
+.vscode
+# ignore junk mad by python
+__pycache__
+app/__pycache__
+app/*/__pycache__
+
