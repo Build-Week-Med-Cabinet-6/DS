@@ -16,6 +16,7 @@ python-dotenv = "*"
 lxml = "*"
 scikit-learn = "*"
 nltk = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
