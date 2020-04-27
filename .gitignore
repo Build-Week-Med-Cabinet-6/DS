@@ -8,3 +8,6 @@ __pycache__
 app/__pycache__
 app/*/__pycache__
 
+# for local dev
+run.sh
+app/testing.ipynb
