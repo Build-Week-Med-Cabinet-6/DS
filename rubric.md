@@ -1,3 +1,13 @@
+## List the steps or items that the student will complete during the Build Sprint:
+
+- [ ]  Connect to business decision/problem in the product, and determine the approach Data Science approach
+- [ ]  Identify appropriate training data OR pre-trained model
+- [ ]  Ingest/clean needed data
+- [ ]  Fit a baseline model
+- [ ]  Build a prototype/MVP machine learning API or other appropriate engineering solution to the problem at hand
+
+
+
 Students in Data Science Unit 4 **can choose one** of the following Objectives and incorporate that in their build sprint deliverable.
 
 [Skills Based Assessment - 2+ ON ONE OBJECTIVE REQUIRED TO PASS ](https://www.notion.so/b29e86c10a09432787880eff6e8914b9)
