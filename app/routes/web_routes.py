@@ -24,9 +24,15 @@ def ask_cards(name):
 @web_routes.route("/products/query/", methods=['POST'])
 def get_search():
 
-    args = request.args
-    print(args)
-    db_strains = Strains.query.all()
-    # ml.ml(args)
-
-    return
+    flavors = request.form['flavors']
+    effects = request.form['effects']
+    user_text = request.form['text']
+    if user_text == 'None':
+        # pred = ml_model_1(effects+flavors)
+        #return Strains.query.filter(Strains.index in pred).all()
+        pass
+    elif user_text != 'None':
+        # pred = ml_model_2(user_text)
+        # return Strains.query.filter(Strains.index in pred).all()
+        pass
+    return flavors, effects, user_text
