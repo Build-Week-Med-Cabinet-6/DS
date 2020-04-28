@@ -21,12 +21,27 @@ def ask_cards(name):
     return f"{name} was passed as a post command to db"
 
 
-@web_routes.route("/products/query/", methods=['POST'])
+@web_routes.route("/products/query", methods=['POST'])
 def get_search():
 
-    args = request.args
-    print(args)
-    db_strains = Strains.query.all()
-    # ml.ml(args)
+    flavors = request.form['flavors']
+    effects = request.form['effects']
+    user_text = request.form['text']
+    if user_text == 'None':
+        # pred = ml_model_1(effects+flavors)
+        #data = Strains.query.filter(Strains.index in pred).all()
+        pass
+    elif user_text != 'None':
+        # pred = ml_model_2(user_text)
+        # data = Strains.query.filter(Strains.index in pred).all()
+        pass
+    data = Strains.query.first()
+    #data = data.__dict__
+    #del data['_sa_instance_state']
 
-    return
+    return jsonify(parse_records(data))
+    #return render_template("dbg.html",
+    #                       flavors=flavors,
+    #                       effects=effects,
+    #                       text=user_text,
+    #                       data=data)
