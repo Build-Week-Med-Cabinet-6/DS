@@ -6,6 +6,17 @@ migrate = Migrate()
 
 
 class Strains(db.Model):
+    """Models the database entry for a Strain
+    Model Members:
+    -------------
+        index = db.Column(db.BigInteger, primary_key=True)
+        strain = db.Column(db.String(128), nullable=False)
+        species = db.Column(db.String(128))
+        rating = db.Column(db.Float, nullable=False)
+        effects = db.Column(db.String(128), nullable=False)
+        flavor = db.Column(db.String(128), nullable=False)
+        description = db.Column(db.String(128), nullable=False)
+    """
     index = db.Column(db.BigInteger, primary_key=True)
     strain = db.Column(db.String(128), nullable=False)
     species = db.Column(db.String(128))
@@ -42,3 +53,4 @@ def parse_records(database_records):
         return parsed_record
 
     return parsed_records
+
