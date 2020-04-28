@@ -12,3 +12,6 @@ app/*/__pycache__
 run.sh
 
 app/testing.ipynb
+
+# current heroku repo that is deployed
+medcab6api/*
