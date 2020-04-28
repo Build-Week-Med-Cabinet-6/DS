@@ -1,21 +1,3 @@
-{% extends "bootstrap_layout.html" %}
-{% set active_page = "users" %}
-
-{% block content %}
-
-<h1>My debugging Page</h1>
-
-{% if strains %}
-<p>The database contains the following entries:</p>
-
-<ul>
-    {% for l in strains %}
-    <li>{{ l.strain }} </li>
-    {% endfor %}
-</ul>
-
-{% else %}
-<p>No strains in the database. Please seed some.</p>
-{% endif %}
-
-{% endblock %}
+{{flavors}}
+{{effects}}
+{{text}}

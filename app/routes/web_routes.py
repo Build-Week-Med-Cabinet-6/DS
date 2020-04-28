@@ -21,7 +21,7 @@ def ask_cards(name):
     return f"{name} was passed as a post command to db"
 
 
-@web_routes.route("/products/query/", methods=['POST'])
+@web_routes.route("/products/query", methods=['POST'])
 def get_search():
 
     flavors = request.form['flavors']
@@ -35,4 +35,7 @@ def get_search():
         # pred = ml_model_2(user_text)
         # return Strains.query.filter(Strains.index in pred).all()
         pass
-    return flavors, effects, user_text
+    return render_template("dbg.html",
+                           flavors=flavors,
+                           effects=effects,
+                           text=user_text)
