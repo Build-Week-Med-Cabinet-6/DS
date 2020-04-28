@@ -35,7 +35,12 @@ def get_search():
         # pred = ml_model_2(user_text)
         # return Strains.query.filter(Strains.index in pred).all()
         pass
+    data = Strains.query.first()
+    data = data.__dict__
+    del data['_sa_instance_state']
+
     return render_template("dbg.html",
                            flavors=flavors,
                            effects=effects,
-                           text=user_text)
+                           text=user_text,
+                           data=data)
