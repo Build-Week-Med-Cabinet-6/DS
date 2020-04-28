@@ -29,18 +29,19 @@ def get_search():
     user_text = request.form['text']
     if user_text == 'None':
         # pred = ml_model_1(effects+flavors)
-        #return Strains.query.filter(Strains.index in pred).all()
+        #data = Strains.query.filter(Strains.index in pred).all()
         pass
     elif user_text != 'None':
         # pred = ml_model_2(user_text)
-        # return Strains.query.filter(Strains.index in pred).all()
+        # data = Strains.query.filter(Strains.index in pred).all()
         pass
     data = Strains.query.first()
-    data = data.__dict__
-    del data['_sa_instance_state']
+    #data = data.__dict__
+    #del data['_sa_instance_state']
 
-    return render_template("dbg.html",
-                           flavors=flavors,
-                           effects=effects,
-                           text=user_text,
-                           data=data)
+    return jsonify(parse_records(data))
+    #return render_template("dbg.html",
+    #                       flavors=flavors,
+    #                       effects=effects,
+    #                       text=user_text,
+    #                       data=data)

@@ -31,8 +31,14 @@ def parse_records(database_records):
         ]
     """
     parsed_records = []
-    for record in database_records:
-        parsed_record = record.__dict__
+    try:
+        for record in database_records:
+            parsed_record = record.__dict__
+            del parsed_record["_sa_instance_state"]
+            parsed_records.append(parsed_record)
+    except:
+        parsed_record = database_records.__dict__
         del parsed_record["_sa_instance_state"]
-        parsed_records.append(parsed_record)
+        return parsed_record
+
     return parsed_records
