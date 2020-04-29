@@ -6,10 +6,15 @@ from app.models import db, migrate
 from app.routes.home_routes import home_routes
 from app.routes.web_routes import web_routes
 
+# used to enable cors for web
+from flask_cors import CORS
+
 
 def create_app():
 
     app = Flask(__name__)
+
+    CORS(app, resources={r"/products/*": {"origins": "*"}})
 
     # get the pg database url from heroku envenviroment
     DATABASE_URL = getenv("DATABASE_URL")
