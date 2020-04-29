@@ -1,9 +1,11 @@
 # web_app/routes/web_routes.py
 
 from flask import Blueprint, render_template, redirect, request, jsonify
-
 from app.models import db, parse_records, Strains
+from app.services.model_service import modelone
 from random import sample
+from os import path
+PICKLE_DIR = path.join(path.dirname(__file__), '..', 'pickles', '')
 
 web_routes = Blueprint("web_routes", __name__)
 
@@ -15,33 +17,39 @@ def get_cards():
     return jsonify(response)
 
 
-@web_routes.route("/products/query/<name>", methods=['POST'])
-def ask_cards(name):
-    # get the name and serch for it in the db
-    return f"{name} was passed as a post command to db"
-
-
 @web_routes.route("/products/query", methods=['POST'])
 def get_search():
 
     flavors = request.form['flavors']
     effects = request.form['effects']
-    user_text = request.form['text']
-    if user_text == 'None':
-        # pred = ml_model_1(effects+flavors)
-        #data = Strains.query.filter(Strains.index in pred).all()
-        pass
-    elif user_text != 'None':
-        # pred = ml_model_2(user_text)
-        # data = Strains.query.filter(Strains.index in pred).all()
-        pass
-    data = Strains.query.first()
-    #data = data.__dict__
-    #del data['_sa_instance_state']
 
+    #init the model
+    m = modelone(PICKLE_DIR + 'nn.pickle',
+                 PICKLE_DIR + 'dtm_combined_tf.pickle')
+
+    # make predictions based on the passed string
+    m.transform_predict([effects + flavors])
+    pred = m.getResults()[0]
+    print(pred)
+    data = Strains.query.filter(Strains.index.in_([int(x)
+                                                   for x in pred])).all()
     return jsonify(parse_records(data))
-    #return render_template("dbg.html",
-    #                       flavors=flavors,
-    #                       effects=effects,
-    #                       text=user_text,
-    #                       data=data)
+
+
+@web_routes.route('/products/search', methods=['POST'])
+def get_text_search():
+    text = request.form['text']
+    #init the model
+    m = modelone(PICKLE_DIR + 'isaac_nn.pickle',
+                 PICKLE_DIR + 'isaac_tf.pickle')
+
+    # make predictions based on the passed string
+    m.transform_predict(text)
+    pred = m.getResults()[0]
+    print(pred)
+    data = Strains.query.filter(Strains.index.in_([int(x)
+                                                   for x in pred])).all()
+    return jsonify(parse_records(data))
+
+
+
