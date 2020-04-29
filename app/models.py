@@ -28,7 +28,8 @@ class Strains(db.Model):
 
 def parse_records(database_records):
     """
-    A helper method for converting a list of database record objects into a list of dictionaries, so they can be returned as JSON
+    A helper method for converting a list of database record objects into a list
+    of dictionaries, so they can be returned as JSON
 
     Param: database_records (a list of db.Model instances)
 

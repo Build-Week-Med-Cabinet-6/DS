@@ -1,20 +1,41 @@
+# since both models use the same thing i can just import
+# the parent classes to unpickle them
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
-from spacy.tokenizer import Tokenizer
-
 import pickle
 
 
 class modelone():
+    """A class that loades a pickled model, makes prediction on input,
+    and returns the model predictions in a web injestable form for web_routes
+    """
     def __init__(self, model_pickle: str, dtm_transformer: str) -> type(None):
+        """Loads the Pickled model and transformer then save's them as class atributes
+        Arguments:
+        -----------
+        model_pickle {str} : the file path to the model that is used to make predictions
 
+        dtm_transformer {str} : the file path to the transformer compaonest that
+        processes input text
+        Returns:
+        -------
+        None
+        """
         # load pickles into ram and assign as attributes
         self.model = pickle.load(open(model_pickle, 'rb'))
         self.dtm_transformer = pickle.load(open(dtm_transformer, 'rb'))
 
         return
 
-    def transform_predict(self, user_text):
+    def transform_predict(self, user_text: str) -> type(None):
+        """Transform the input text and make predictions based on the trained model
+        Arugments:
+        -------------
+        user_text {str} : the string that is used to make the prediction
+        Returns:
+        ----------
+        None
+        """
         # transform the text the user sent
         t = self.dtm_transformer.transform(user_text)
         # use knn to make results
@@ -25,19 +46,16 @@ class modelone():
         return
 
     def getResults(self) -> type(None):
+        """Returns the results target variable from the prediction
+        Arguments:
+        ----------
+        None
+        Returns:
+        -----------
+        None
+        """
         # just returning the id's of the results of the prediction
         return self.results[1]
-
-
-# ignore pickle had a fit
-def tokenize(document):
-
-    doc = nlp(document)
-
-    return [
-        token.lemma_.strip() for token in doc
-        if (token.is_stop != True) and (token.is_punct != True)
-    ]
 
 
 # part of the seed code left here for prosperity and to ref back to

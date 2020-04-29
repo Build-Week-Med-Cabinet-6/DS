@@ -18,6 +18,7 @@ scikit-learn = "*"
 nltk = "*"
 psycopg2-binary = "*"
 spacy = "*"
+flask-cors = "*"
 
 [dev-packages]
 
