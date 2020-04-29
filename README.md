@@ -1,19 +1,15 @@
 # DS
 
-<<<<<<< HEAD
-http://127.0.0.1:5000/products/query_test/?effects='Creative,Energetic,Tingly,Euphoric,Relaxed'&flavors='Earthy,Sweet,Citrus'
 
 
 
-=======
->>>>>>> 255d6c22c5d5db7bed05107ee682885c60998dc5
 This is the repo for the Data science part of the team
 
 A heroku API app is currently deployed to [Link](https://medcab6api.herokuapp.com/)
 
 the app is using the application factory layout and has a posgresql server hosted
 
-by heroku configured to the enviroment variable DATABASE_URL.
+by heroku configured to the enviroment variable DATABASE_URL
 
 <div>
 
@@ -28,3 +24,7 @@ by heroku configured to the enviroment variable DATABASE_URL.
  </div>
 
 
+
+#TODO 
+Endpoints can look like ...
+http://127.0.0.1:5000/products/query_test/?effects='Creative,Energetic,Tingly,Euphoric,Relaxed'&flavors='Earthy,Sweet,Citrus'
