@@ -1,6 +1,6 @@
 # web_app/routes/admin_routes.py
 
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, render_template, redirect, request, flash
 from app.utils.make_pickles import make_pickles_isaac
 from app.utils.make_pickles import make_pickles_mark
 from os import getenv
@@ -15,11 +15,16 @@ def admin_landingpad():
 
 @admin_routes.route("/admin/models/rebuild", methods=["POST"])
 def reubild_models():
+    flash("Rebuilding model (1/2)... this might take a while")
     make_pickles_isaac().save_pickles()
+    flash("Rebuilding Model (2/2) .. this might take a while")
     make_pickles_mark().save_pickles()
     return redirect('/')
 
 
 @admin_routes.route("/admin/db/rebuild", methods=["POST"])
 def rebuild_db():
-    return "there was a problem authenicating your request"
+    flash(
+        "Rebuilding the database from scratch\njust kidding this isn't implemented"
+    )
+    return "database rebuilt"

@@ -65,6 +65,8 @@ class make_pickles_isaac():
         return
 
     def save_pickles(self):
+        """A method to save pickles locally to the server from this script
+        """
         with open(self.PICKLE_PATH + "nn_isaac.pickle", 'wb') as fp0:
             pickle.dump(self.model, fp0)
         with open(self.PICKLE_PATH + "tfidf_isaac.pickle", 'wb') as fp1:
@@ -72,7 +74,9 @@ class make_pickles_isaac():
         return
 
     def tokenize(self, document):
-
+        """Local method to the model from above, taken and put as a class model
+        so that pickle won't break.
+        """
         nlp = English()
         doc = nlp(document)
 
@@ -84,6 +88,9 @@ class make_pickles_isaac():
 
 class make_pickles_mark():
     def __init__(self):
+        """A model for taking effects and flavors and returning database entries
+        for the predicted strains that are similar to those strains.
+        """
         self.PICKLE_PATH = path.join(path.dirname(__file__), '..', 'pickles',
                                      '')
         # set up the spacy tokenizer
@@ -120,6 +127,8 @@ class make_pickles_mark():
         return
 
     def save_pickles(self):
+        """A method to save pickles locally to the server from this script
+        """
         with open(self.PICKLE_PATH + "nn_mark.pickle", 'wb') as fp0:
             pickle.dump(self.model, fp0)
         with open(self.PICKLE_PATH + "tfidf_mark.pickle", 'wb') as fp1:

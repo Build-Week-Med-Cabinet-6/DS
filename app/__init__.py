@@ -12,7 +12,9 @@ from flask_cors import CORS
 
 
 def create_app():
-
+    """Entry point for the flask app, using the application factory framework to
+    launch
+    """
     app = Flask(__name__)
     CORS(app, resources={r"/products/*": {"origins": "*"}})
 
@@ -23,6 +25,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
     app.config[
         "SQLALCHEMY_TRACK_MODIFICATIONS"] = False  # suppress warning messages
+    app.config["SECRET_KEY"] = getenv("SECRET_KEY",
+                                      "super secret key placeholder")
 
     db.init_app(app)
     migrate.init_app(app, db)

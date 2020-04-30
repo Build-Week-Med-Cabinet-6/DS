@@ -1,3 +1,9 @@
+{% extends "bootstrap_layout.html" %}
+{% set active_page = "admin_page" %}
+
+{% block content %}
+<h1>testing for the /products/query endpoint</h1>
+<p>this for will send POST requests with flavors and effects</p>
 <form action="/products/query" method="POST">
 
     <label>flavors</label>
@@ -14,11 +20,19 @@
         <option value="sleepy" selected="true">Sleepy</option>
         <option value="dry mouth">Dry mouth</option>
     </select>
+
+    <button>Submit</button>
+</form>
+<br>
+<p>this form will test the /product/search endpoint taking a user defined string<br>
+    and returning a strain that is similar or recommended by the model</p>
+<form action="/products/search" method="POST">
     <br>
 
     <label>user_text</label>
     <input type="text" name="text" placeholder="None" value="None">
     <br>
-
     <button>Submit</button>
 </form>
+
+{% endblock %}

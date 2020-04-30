@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "bootstrap_layout.html" %}
+{% set active_page = "admin_page" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block content %}
 
-<body>
-    <form action="/admin/models/rebuild" method="POST">
-
-        <label>rebuild</label>
-        <select name="model">
-            <option value="mark" selected="true">mark</option>
-            <option value="isaac">isaac</option>
-        </select>
-        <br>
-
-        <button>Submit</button>
-    </form>
-</body>
-
-</html>
+<h1>Welcome to the admin panel.</h1>
+<p> this is a place that you can do some basic</p>
+<p>tasks with the api site behind the scenes including rebuiling the models</p>
+<p>with the button below you can rebuild the models</p>
+<form action="/admin/models/rebuild" method="POST">
+    <button>Submit</button>
+</form>
+<br>
+<p>With the button below you can rebuild the database from source</p>
+<form action="/admin/db/rebuild" method="POST">
+    <button>Submit</button>
+</form>
+{% endblock %}
