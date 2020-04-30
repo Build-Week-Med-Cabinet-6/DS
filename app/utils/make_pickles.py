@@ -5,7 +5,7 @@ import spacy
 from spacy.tokenizer import Tokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from spacy.lang.en import English
-#import en_core_web_md
+import en_core_web_md
 import pickle
 from os import path
 
@@ -17,13 +17,18 @@ class make_pickles_isaac():
         self.PICKLE_PATH = path.join(path.dirname(__file__), '..', 'pickles',
                                      '')
 
+        # for now i'm loading data from a static link, will try to pull live data
+        # in future iters
         leafly = pd.read_csv(
             'https://raw.githubusercontent.com/Build-Week-Med-Cabinet-6/DS/mark-dev/data/cannabis.csv'
         )
 
         # Set up spacy tokenizer
-        nlp = English()
+        nlp = en_core_web_md.load()
         tokenizer = Tokenizer(nlp.vocab)
+
+        # work around for pickle
+        self.nlp = nlp
 
         # clean some missing info
         leafly.replace('None', np.NaN, inplace=True)
@@ -37,20 +42,11 @@ class make_pickles_isaac():
         leafly['tokens'] = tokens
         leafly['tokens'].head()
 
-        def tokenize(document):
-
-            doc = nlp(document)
-
-            return [
-                token.lemma_.strip() for token in doc
-                if (token.is_stop != True) and (token.is_punct != True)
-            ]
-
         # Instantiate vectorizer object
         tfidf = TfidfVectorizer(ngram_range=(1, 2),
-                                max_df=.97,
-                                min_df=3,
-                                tokenizer=tokenize)
+                                max_df=.7,
+                                min_df=.001,
+                                tokenizer=self.tokenize)
 
         # Create a vocabulary and get word counts per listing
         dtm = tfidf.fit_transform(leafly['Description'])
@@ -71,6 +67,57 @@ class make_pickles_isaac():
             pickle.dump(self.transform, fp1)
         return
 
+    def tokenize(self, document):
+
+        nlp = en_core_web_md.load()
+        doc = nlp(document)
+
+        return [
+            token.lemma_.strip() for token in doc
+            if (token.is_stop != True) and (token.is_punct != True)
+        ]
+
 
 class make_pickles_mark():
-    pass
+    def __init__(self):
+        self.PICKLE_PATH = path.join(path.dirname(__file__), '..', 'pickles',
+                                     '')
+        # set up the spacy tokenizer
+        nlp = English()
+        tokenizer = Tokenizer(nlp.vocab)
+        # read data from remote
+        # TODO implement local read from db
+        df = pd.read_csv(
+            "https://raw.githubusercontent.com/Build-Week-Med-Cabinet-6/DS/mark-dev/data/cannabis.csv"
+        )
+        # clean the data
+        df.replace('None', np.NaN, inplace=True)
+        df = df.dropna()
+
+        # comine effects and flavors
+        df['Combined'] = df['Effects'] + ',' + df['Flavor']
+
+        #make a tfidf and transfor the training data
+        dtm_combined_tf = TfidfVectorizer(stop_words='english')
+        dtm_combined = dtm_combined_tf.fit_transform(
+            df['Combined'].values.astype('U'))
+        dtm_combined = pd.DataFrame(
+            dtm_combined.todense(),
+            columns=dtm_combined_tf.get_feature_names())
+
+        #knn model to make predictions
+        nn = NearestNeighbors(n_neighbors=5, algorithm='ball_tree')
+        nn.fit(dtm_combined)
+
+        # save to class atributes to pickle
+        self.model = nn
+        self.transform = dtm_combined_tf
+
+        return
+
+    def save_pickles(self):
+        with open(self.PICKLE_PATH + "nn_mark.pickle", 'wb') as fp0:
+            pickle.dump(self.model, fp0)
+        with open(self.PICKLE_PATH + "tfidf_mark.pickle", 'wb') as fp1:
+            pickle.dump(self.transform, fp1)
+        return

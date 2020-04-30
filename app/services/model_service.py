@@ -2,6 +2,7 @@
 # the parent classes to unpickle them
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
+import en_core_web_md
 import pickle
 
 

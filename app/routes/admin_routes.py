@@ -3,6 +3,7 @@
 from flask import Blueprint, render_template, redirect, request
 from app.utils.make_pickles import make_pickles_isaac
 from app.utils.make_pickles import make_pickles_mark
+from os import getenv
 
 admin_routes = Blueprint("admin_routes", __name__)
 
@@ -14,13 +15,11 @@ def admin_landingpad():
 
 @admin_routes.route("/admin/models/rebuild", methods=["POST"])
 def reubild_models():
-    response = request.form["model"]
-    if response == "isaac":
-        #make_pickles_isaac()
-        print("rebuilt isaac's model and saved it as a pickle")
-    elif response == "mark":
-        #make_pickles_mark()
-        print("rebuilt isaac's model and saved it as a pickle")
-    else:
-        print("unknown option: {} used to select a model".format(response))
-    return render_template("admin_pannel.html")
+    make_pickles_isaac().save_pickles()
+    make_pickles_mark().save_pickles()
+    return redirect('/')
+
+
+@admin_routes.route("/admin/db/rebuild", methods=["POST"])
+def rebuild_db():
+    return "there was a problem authenicating your request"

@@ -41,8 +41,8 @@ def get_search():
     effects = request.form['effects']
 
     #init the model
-    m = modelone(PICKLE_DIR + 'nn.pickle',
-                 PICKLE_DIR + 'dtm_combined_tf.pickle')
+    m = modelone(PICKLE_DIR + 'nn_mark.pickle',
+                 PICKLE_DIR + 'tfidf_mark.pickle')
 
     # make predictions based on the passed string
     m.transform_predict([effects + flavors])
@@ -70,8 +70,8 @@ def get_text_search():
     """
     text = request.form['text']
     #init the model
-    m = modelone(PICKLE_DIR + 'isaac_nn.pickle',
-                 PICKLE_DIR + 'isaac_tf.pickle')
+    m = modelone(PICKLE_DIR + 'nn_isaac.pickle',
+                 PICKLE_DIR + 'tfidf_isaac.pickle')
 
     # make predictions based on the passed string
     m.transform_predict([text])
