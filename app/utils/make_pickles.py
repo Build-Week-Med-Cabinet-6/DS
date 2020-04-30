@@ -5,7 +5,11 @@ import spacy
 from spacy.tokenizer import Tokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from spacy.lang.en import English
-import en_core_web_md
+
+# not working on production server dropping the
+# implementation and comming back to it
+#import en_core_web_md
+
 import pickle
 from os import path
 
@@ -24,7 +28,7 @@ class make_pickles_isaac():
         )
 
         # Set up spacy tokenizer
-        nlp = en_core_web_md.load()
+        nlp = English()
         tokenizer = Tokenizer(nlp.vocab)
 
         # work around for pickle
@@ -69,7 +73,7 @@ class make_pickles_isaac():
 
     def tokenize(self, document):
 
-        nlp = en_core_web_md.load()
+        nlp = English()
         doc = nlp(document)
 
         return [
