@@ -19,6 +19,7 @@ psycopg2-binary = "*"
 spacy = "*"
 flask-cors = "*"
 flask-swagger-ui = "*"
+
 [dev-packages]
 
 [requires]
