@@ -56,7 +56,7 @@ def get_search():
 @web_routes.route('/products/search', methods=['POST'])
 @cross_origin()
 def get_text_search():
-        """Function/Endpoint takes the parameters send in a post request and passes
+    """Function/Endpoint takes the parameters send in a post request and passes
     them to a model to return the matching strains based on the arguments that
     were passed by the user.
     Arguments:
@@ -67,7 +67,7 @@ def get_text_search():
     Returns:
     ----------
     data {jsonb} : the entries in the databse that match the resulting predicted strains
-    """"
+    """
     text = request.form['text']
     #init the model
     m = modelone(PICKLE_DIR + 'isaac_nn.pickle',
