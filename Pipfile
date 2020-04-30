@@ -15,10 +15,10 @@ numpy = "*"
 python-dotenv = "*"
 lxml = "*"
 scikit-learn = "*"
-nltk = "*"
 psycopg2-binary = "*"
 spacy = "*"
 flask-cors = "*"
+flask-swagger-ui = "*"
 
 [dev-packages]
 
