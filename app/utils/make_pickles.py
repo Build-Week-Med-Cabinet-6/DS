@@ -4,7 +4,8 @@ import numpy as np
 import spacy
 from spacy.tokenizer import Tokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
-import en_core_web_md
+from spacy.lang.en import English
+#import en_core_web_md
 import pickle
 from os import path
 
@@ -21,7 +22,7 @@ class make_pickles_isaac():
         )
 
         # Set up spacy tokenizer
-        nlp = en_core_web_md.load()
+        nlp = English()
         tokenizer = Tokenizer(nlp.vocab)
 
         # clean some missing info
@@ -61,6 +62,7 @@ class make_pickles_isaac():
         nn.fit(dtm)
         self.model = nn
         self.transform = tfidf
+        return
 
     def save_pickles(self):
         with open(self.PICKLE_PATH + "nn_isaac.pickle", 'wb') as fp0:
@@ -68,3 +70,7 @@ class make_pickles_isaac():
         with open(self.PICKLE_PATH + "tfidf_isaac.pickle", 'wb') as fp1:
             pickle.dump(self.transform, fp1)
         return
+
+
+class make_pickles_mark():
+    pass

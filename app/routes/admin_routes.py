@@ -14,8 +14,13 @@ def admin_landingpad():
 
 @admin_routes.route("/admin/models/rebuild", methods=["POST"])
 def reubild_models():
-    if request.form.get("model") == "isaac":
-        print("isaac's model is selected")
+    response = request.form["model"]
+    if response == "isaac":
+        #make_pickles_isaac()
+        print("rebuilt isaac's model and saved it as a pickle")
+    elif response == "mark":
+        #make_pickles_mark()
+        print("rebuilt isaac's model and saved it as a pickle")
     else:
-        print("mark's models is selected")
-    return redirect("/")
+        print("unknown option: {} used to select a model".format(response))
+    return render_template("admin_pannel.html")
