@@ -11,6 +11,9 @@ app/*/__pycache__
 # for local dev
 run.sh
 
+*.pickle
+*.pickles
+
 app/testing.ipynb
 
 # current heroku repo that is deployed
